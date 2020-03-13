@@ -1,10 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const path = require('path')
 const dotenv = require('dotenv')
 const cors = require('cors')
 const { Expo } = require('expo-server-sdk')
-const googleSeet = require('./util')
+const googleSheet = require('./util')
 const schedule = require('node-schedule')
 
 const app = express()
@@ -13,6 +12,8 @@ const app = express()
 
 const sendEmail = require('./routes/email')
 const sendData = require('./routes/user-data')
+const sendCode = require('./routes/user-code')
+const openHours = require('./routes/open-hours')
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -20,12 +21,14 @@ app.use(cors())
 dotenv.config()
 app.use('/api', sendEmail)
 app.use('/api', sendData)
+app.use('/api', sendCode)
+app.use('/api', openHours)
 
 // ROUTES
 
 async function sendNotifications() {
     let expo = new Expo()
-    const sheet = (await googleSeet()).gsrun
+    const sheet = (await googleSheet()).gsrun
     let messages = []
     
     sheet.map(data => {
@@ -59,9 +62,43 @@ async function sendNotifications() {
 
 }
 
-schedule.scheduleJob(' * 6 * * *', function() {
-  sendNotifications()
-})
+let min
+let hour
+
+(async function(){
+  const data = await googleSheet()
+  let hr = data.gsrun[0]
+
+  if(hr[9].slice(-2)==='00'){
+      min = 0
+      if(hr[9].charAt(1)==='.') {
+        hour = hr[9].charAt(0)
+      }else {
+        hour = hr[9].slice(0, 2)
+      }
+
+  }else if(hr[9].charAt( hr[9].length - 2 ) === '0') {
+      min = hr[9].slice(-1)
+      if(hr[9].charAt(1)==='.') {
+        hour = hr[9].charAt(0)
+      }else {
+        hour = hr[9].slice(0, 2)
+      }
+  }else {
+      min = hr[9].slice(-2)
+      if(hr[9].charAt(1)==='.') {
+        hour = hr[9].charAt(0)
+      }else {
+        hour = hr[9].slice(0, 2)
+      }
+  }
+
+  schedule.scheduleJob(`${min} ${hour} * * *`, function() {
+    sendNotifications() 
+  })
+})()
+
+
 
 
 
