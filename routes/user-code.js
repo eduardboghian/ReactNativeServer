@@ -16,10 +16,11 @@ router.post('/send-code', async (req, res)=> {
 
     await Promise.all(data.gsrun.map(async (data, index)=> {
         if(parseInt(data[7]) === parseInt( req.body.code)) {
-            // GET PUSH NOTIFICATION TOKEN
 
+            // GET PUSH NOTIFICATION TOKEN
+            console.log('pushNotificationsCode:', req.body.pushToken)
             // SAVE THE USERID TO GOOGLE SHEET
-            console.log(req.body)
+            console.log(req.body.code, data[7], 'fail')
             let passData = []
             passData[0] = [userId, req.body.pushToken]
             const options = {
