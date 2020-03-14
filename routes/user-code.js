@@ -5,7 +5,7 @@ const {google} = require('googleapis')
 
 router.post('/send-code', async (req, res)=> {
     // GENERATE THE ID
-    const userId
+    let userId 
     // CHECK THE CODE
     let data = await getData()
     let client = data.client
