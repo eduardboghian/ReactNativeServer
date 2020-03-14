@@ -94,12 +94,13 @@ let hour
         hour = hr[9].slice(0, 2)
       }
   }
-  
+
   let test = new Date().getHours() +":"+new Date().getMinutes()
   min = parseInt(min)
+  hour = parseInt(hour)
   console.log(typeof hour, min, test)
 
-  schedule.scheduleJob(` ${min} * * * *`, function() {
+  schedule.scheduleJob(` ${min} ${hour} * * *`, function() {
     sendNotifications() 
   })
 })()
