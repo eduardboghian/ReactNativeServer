@@ -98,7 +98,7 @@ let hour
   let test = new Date().getHours() +":"+new Date().getMinutes()
   min = parseInt(min)
   hour = parseInt(hour)
-  console.log(typeof hour, min, test)
+  console.log( hour, min, test)
 
   schedule.scheduleJob(` ${min} ${hour} * * *`, function() {
     sendNotifications() 
