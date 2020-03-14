@@ -8,6 +8,7 @@ let emails
 
 router.post('/send-email', async (req, res)=> {
     datas = req.body
+    console.log(req.body)
     let emailsList = await emails
     let response
 
