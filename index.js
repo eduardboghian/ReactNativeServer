@@ -95,8 +95,8 @@ let hour
       }
   }
   let test = new Date().getHours() +":"+new Date().getMinutes()
-  console.log(hour, min, test)
-  schedule.scheduleJob(`${min} ${hour} * * *`, function() {
+  console.log(typeof hour, min, test)
+  schedule.scheduleJob(`${parseInt(min)} ${parseInt(hour)} * * *`, function() {
     sendNotifications() 
   })
 })()
