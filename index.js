@@ -68,6 +68,7 @@ let hour
 (async function(){
   const data = await googleSheet()
   let hr = data.gsrun[0]
+  console.log(hr[9, hr[10]])
 
   if(hr[9].slice(-2)==='00'){
       min = 0
