@@ -19,7 +19,7 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors())
 dotenv.config()
-app.use('/api', sendEmail)
+app.use('/api', sendEmail) 
 app.use('/api', sendData)
 app.use('/api', sendCode)
 app.use('/api', openHours)
@@ -27,6 +27,7 @@ app.use('/api', openHours)
 // ROUTES
 
 async function sendNotifications() {
+    console.log('send notifications called...')
     let expo = new Expo()
     const sheet = (await googleSheet()).gsrun
     let messages = []
@@ -40,7 +41,7 @@ async function sendNotifications() {
               to: data[10],
               sound: 'default',
               title: 'WorkRULES',
-              body: `${data[0]} ${data[1]}, please confirm that you are working today!`,
+              body: `${data[0]} ${data[1]}, please confirm that you are working today!!!`,
               data: { withSome: 'data' },
             })
         }
@@ -94,6 +95,7 @@ let hour
       }
   }
 
+  console.log(hour, min)
   schedule.scheduleJob(`${min} ${hour} * * *`, function() {
     sendNotifications() 
   })

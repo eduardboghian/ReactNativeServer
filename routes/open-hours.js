@@ -5,6 +5,7 @@ router.get('/open-hours', async (req, res)=> {
     const data = await googleSheet()
 
     let hr = data.gsrun[0]
+    console.log(hr[9], hr[10])
     let hours = [hr[9], hr[10]]
     res.send(hours)
 })

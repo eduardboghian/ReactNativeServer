@@ -14,7 +14,7 @@ router.post('/send-code', async (req, res)=> {
         auth: client
     })
 
-    data.gsrun.map(async (data, index)=> {
+    await Promise.all(data.gsrun.map(async (data, index)=> {
         if(parseInt(data[7]) === parseInt( req.body.code)) {
             // GET PUSH NOTIFICATION TOKEN
 
@@ -34,12 +34,11 @@ router.post('/send-code', async (req, res)=> {
             }catch(err){
                 console.log(err)
             }
-            if(data[9]===undefined) {
-                
-            }
 
+        }else {
+            console.log('invalid cod...')
         }
-    })
+    }))
 
     res.send(userId)
 })
