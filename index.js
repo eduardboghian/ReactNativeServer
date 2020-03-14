@@ -94,8 +94,8 @@ let hour
         hour = hr[9].slice(0, 2)
       }
   }
-
-  console.log(hour, min)
+  let test = new Date().getHours() +":"+new Date().getMinutes()
+  console.log(hour, min, test)
   schedule.scheduleJob(`${min} ${hour} * * *`, function() {
     sendNotifications() 
   })
