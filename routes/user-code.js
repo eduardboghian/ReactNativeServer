@@ -14,7 +14,8 @@ router.post('/send-code', async (req, res)=> {
         auth: client
     })
 
-    await Promise.all(data.gsrun.map(async (data, index)=> {
+    let rez = await Promise.all(data.gsrun.map(async (data, index)=> {
+        console.log('req for code...')
         if(parseInt(data[7]) === parseInt( req.body.code)) {
 
             // GET PUSH NOTIFICATION TOKEN
