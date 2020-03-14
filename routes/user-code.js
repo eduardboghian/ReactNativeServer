@@ -5,7 +5,7 @@ const {google} = require('googleapis')
 
 router.post('/send-code', async (req, res)=> {
     // GENERATE THE ID
-    const userId = uuidv4()
+    const userId
     // CHECK THE CODE
     let data = await getData()
     let client = data.client
@@ -17,7 +17,7 @@ router.post('/send-code', async (req, res)=> {
     let rez = await Promise.all(data.gsrun.map(async (data, index)=> {
         console.log('req for code...')
         if(parseInt(data[7]) === parseInt( req.body.code)) {
-
+            userId = uuidv4()
             // GET PUSH NOTIFICATION TOKEN
             console.log('pushNotificationsCode:', req.body.pushToken)
             // SAVE THE USERID TO GOOGLE SHEET
