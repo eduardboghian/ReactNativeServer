@@ -118,7 +118,10 @@ async function sendEmails() {
           hour = hr[10].slice(0, 2)
         }
     }
-  
+    
+    min = parseInt(min)
+    hour = parseInt(hour)
+    console.log('send email hour...', hour, min)
     schedule.scheduleJob(`${min} ${hour} * * *`, function() {
       sendEmails() 
     })
