@@ -41,6 +41,7 @@ async function sendEmails() {
     let mapList = await emails
 
     if(Object.keys(mapList).length === 0) {
+        console.log('no emails were sent...')
         return
     }
     let transporter = nodemailer.createTransport({
