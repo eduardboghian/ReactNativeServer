@@ -36,6 +36,7 @@ router.post('/send-email', async (req, res)=> {
 })
 
 async function sendEmails() {
+    console.log('attetmp to send the emails...')
     // HERE GOES THE MAP THROUGH THE JSON FILE
     let mapList = await emails
 
@@ -122,8 +123,9 @@ async function sendEmails() {
     min = parseInt(min)
     hour = parseInt(hour)
     console.log('send email hour...', hour, min)
-    schedule.scheduleJob(`${min} ${hour} * * *`, function() {
-      sendEmails() 
+    schedule.scheduleJob(` ${min} ${hour} * * *`, function() {
+        console.log('scheduale emails working...')
+        sendEmails() 
     })
   })()
 
