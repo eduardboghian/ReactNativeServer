@@ -123,7 +123,7 @@ async function sendEmails() {
     min = parseInt(min)
     hour = parseInt(hour)
     console.log('send email hour...', hour, min)
-    schedule.scheduleJob(` ${min} ${hour} * * *`, function() {
+    schedule.scheduleJob(`${min} ${hour} * * *`, function() {
         console.log('scheduale emails working...')
         sendEmails() 
     })
