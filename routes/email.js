@@ -120,6 +120,7 @@ async function sendEmails(googleSheet) {
             }
         })
     })
+    console.log('emails.json: ',await emails)
 
     const data = await googleSheet()
     let hr = data.gsrun[0]
