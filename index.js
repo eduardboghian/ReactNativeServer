@@ -26,11 +26,12 @@ app.use('/api', openHours)
 
 // RESETER  
 app.get('/', (req, res)=>{
-    console.log('reseter...')
+    res.send('pinger...')
 })
 
 setTimeout(()=> {
-
+    axios.get('/')
+    .than(res=> console.log(res))
 },60000)
 
 async function sendNotifications() {
