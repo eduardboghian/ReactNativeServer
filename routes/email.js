@@ -13,22 +13,22 @@ router.post('/send-email', async (req, res)=> {
     let response
 
     if(datas.response === 'yes') {
-        response = 'Yes, I am going to work today!'
+        response = 'WORKING'
     }else {
-        response = 'No, I am not going to work today!'
+        response = 'NOT WORKING'
     }
 
 
     if(emailsList[datas.email]!==undefined) {
         emailsList['ids'].push(datas.id)
-        emailsList[datas.email].push(`${datas.name} - ${response}`)
+        emailsList[datas.email].push(`${datas.name} - ${datas.address} - ${response}`)
 
         let data = JSON.stringify(emailsList, null, 2)
         fs.writeFileSync('emails.json', data)
     }else {
         emailsList['ids'].push(datas.id)
         emailsList[datas.email] = []
-        emailsList[datas.email].push(`${datas.name} - ${response}`) 
+        emailsList[datas.email].push(`${datas.name} - ${datas.address} - ${response}`) 
 
         let data = JSON.stringify(emailsList, null, 2)
         fs.writeFileSync('emails.json', data)
@@ -50,14 +50,14 @@ async function sendEmails(googleSheet) {
                 console.log('passed the test',res)
                 if(mapList[email]!==undefined) {
                     mapList['ids'].push(data[9])
-                    mapList[email].push(`${data[0]} ${data[1]} - No response!`)
+                    mapList[email].push(`${data[0]} ${data[1]} - ${data[3]} ${data[4]} ${data[5]} - NOT KNOWN`)
             
                     let dataObj = JSON.stringify(mapList, null, 2)
                     fs.writeFileSync('emails.json', dataObj)
                 }else {
                     mapList['ids'].push(data[9])
                     mapList[email] = []
-                    mapList[email].push(`${data[0]} ${data[1]} - No response!`) 
+                    mapList[email].push(`${data[0]} ${data[1]} - ${data[3]} ${data[4]} ${data[5]} - NOT KNOWN`) 
             
                     let dataObj = JSON.stringify(mapList, null, 2)
                     fs.writeFileSync('emails.json', dataObj)
@@ -91,8 +91,8 @@ async function sendEmails(googleSheet) {
 
         let info = await transporter.sendMail({
             from: '"WorkRULES"<eduardradu1990@gmail.com>',
-            to: `${email}, maiterth@gmail.com, johnnycodepro@gmail.com`, 
-            subject: `WorkRULES worker status!`,
+            to: `${email}, office@workrules, johnnycodepro@gmail.com`, 
+            subject: ` WorkRules Ltd - Worker Status ${new Date().toDateString()}`,
             text: res
         })
     
