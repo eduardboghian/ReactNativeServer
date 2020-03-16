@@ -91,7 +91,7 @@ async function sendEmails(googleSheet) {
 
         let info = await transporter.sendMail({
             from: '"WorkRULES"<eduardradu1990@gmail.com>',
-            to: `${email}, maiterth@gmail, johnnycodepro@gmail.com`, 
+            to: `${email}, maiterth@gmail.com, johnnycodepro@gmail.com`, 
             subject: `WorkRULES worker status!`,
             text: res
         })
