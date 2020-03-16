@@ -26,7 +26,7 @@ app.use('/api', openHours)
 
 // RESETER  
 
-const pinger = require('./pingerer')
+const pinger = require('./pinger')
 pinger()
 
 async function sendNotifications() {
