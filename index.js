@@ -25,14 +25,9 @@ app.use('/api', sendCode)
 app.use('/api', openHours)
 
 // RESETER  
-app.get('/', (req, res)=>{
-    res.send('pinger...')
-})
 
-setTimeout(()=> {
-    axios.get('/')
-    .than(res=> console.log(res))
-},60000)
+const pinger = require('./pingerer')
+pinger()
 
 async function sendNotifications() {
     console.log('send notifications called...')
