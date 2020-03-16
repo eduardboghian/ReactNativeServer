@@ -24,7 +24,14 @@ app.use('/api', sendData)
 app.use('/api', sendCode)
 app.use('/api', openHours)
 
-// ROUTES
+// RESETER  
+app.get('/', (req, res)=>{
+    console.log('reseter...')
+})
+
+setTimeout(()=> {
+
+},60000)
 
 async function sendNotifications() {
     console.log('send notifications called...')
