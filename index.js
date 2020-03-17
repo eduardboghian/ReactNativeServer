@@ -26,6 +26,10 @@ app.use('/api', openHours)
 
 // RESETER  
 
+app.get('/', (req, res)=> {
+    res.send('pinged')
+})
+
 const pinger = require('./pinger')
 pinger()
 

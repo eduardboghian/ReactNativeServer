@@ -1,35 +1,25 @@
-const fetch = require("node-fetch");
+var http = require('http'); //importing http
 
-const wakeUpDyno = (url, interval = 25, callback) => {
-    console.log('ping working...')
-    const milliseconds = interval * 60000;
-    setTimeout(() => {
+function startKeepAlive() {
+    setInterval(function() {
+        var options = {
+            host: 'notificationsserver.herokuapp.com',
+            port: 80,
+            path: '/'
+        };
+        http.get(options, function(res) {
+            res.on('data', function(chunk) {
+                try {
+                    // optional logging... disable after it's working
+                    console.log("HEROKU RESPONSE: ");
+                } catch (err) {
+                    console.log(err.message);
+                }
+            });
+        }).on('error', function(err) {
+            console.log("Error: " + err.message);
+        });
+    }, 20 * 60 * 1000); // load every 20 minutes
+}
 
-        try { 
-            console.log(`setTimeout called.`);
-            // HTTP GET request to the dyno's url
-            fetch('https://www.github.com/').then(() => console.log(`Fetching ${url}.`)); 
-        }
-        catch (err) { // catch fetch errors
-            console.log(`Error fetching ${url}: ${err.message} 
-            Will try again in ${interval} minutes...`);
-        }
-        finally {
-
-            try {
-                callback(); // execute callback, if passed
-            }
-            catch (e) { // catch callback error
-                callback ? console.log("Callback failed: ", e.message) : null;
-            }
-            finally {
-                // do it all again
-                return wakeUpDyno(url, interval, callback);
-            }
-            
-        }
-
-    }, milliseconds);
-};
-
-module.exports = wakeUpDyno
+module.exports = startKeepAlive
