@@ -50,6 +50,7 @@ async function sendNotifications() {
               title: 'WorkRULES',
               body: `${data[0]} ${data[1]}, please confirm that you are working today!!!`,
               data: { withSome: 'data' },
+              _displayInForeground: true
             })
         }
     })
