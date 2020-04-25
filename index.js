@@ -26,12 +26,12 @@ app.use('/api', openHours)
 
 // RESETER  
 
-app.get('/', (req, res)=> {
-    res.send('pinged')
-})
+// app.get('/', (req, res)=> {
+//     res.send('pinged')
+// })
 
-const pinger = require('./pinger')
-pinger()
+// const pinger = require('./pinger')
+// pinger()
 
 async function sendNotifications() {
     console.log('send notifications called...')
